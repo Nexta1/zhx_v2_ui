@@ -14,17 +14,18 @@ module.exports = {
   // add your custom rules here
   // it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-    // "vue/max-attributes-per-line": [2, {
-    //   "singleline": 10,
-    //   "multiline": {
-    //     "max": 1,
-    //     "allowFirstLine": false
-    //   }
-    // }],
+    'vue/max-attributes-per-line': [
+      2,
+      {
+        singleline: 10,
+        multiline: {
+          max: 1
+        }
+      }
+    ],
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/name-property-casing': ['error', 'PascalCase'],
-    'vue/multi-word-component-names': 'off',
     'vue/no-v-html': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [
@@ -136,10 +137,12 @@ module.exports = {
         allowSwitch: false
       }
     ],
+    'vue/multi-word-component-names': 'off',
     'no-lone-blocks': 2,
     'no-mixed-spaces-and-tabs': 2,
     'no-multi-spaces': 2,
     'no-multi-str': 2,
+    'space-before-function-paren': 0,
     'no-multiple-empty-lines': [
       2,
       {
@@ -228,7 +231,6 @@ module.exports = {
       }
     ],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'never'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [
@@ -262,7 +264,7 @@ module.exports = {
     'prefer-const': 2,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'object-curly-spacing': [
-      2,
+      0,
       'always',
       {
         objectsInObjects: false
