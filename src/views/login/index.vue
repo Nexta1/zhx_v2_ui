@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import defaultSettings from '@/core/config/setting'
+import defaultSettings from '@/config/setting'
 import { getImageCaptcha } from '@/api/login'
 
 export default {
@@ -100,10 +100,10 @@ export default {
       }
     }
     const validatecaptchaCode = (rule, value, callback) => {
-      if (value.length !== 4) {
-        callback(new Error('请输入合法的验证码'))
-      } else {
+      if (value.length === 4) {
         callback()
+      } else {
+        callback(new Error('请输入合法的验证码'))
       }
     }
     return {
@@ -165,9 +165,7 @@ export default {
             })
             .catch((e) => {
               this.loading = false
-              if (e.code && e.code === 10003) {
-                this.handleRefreshCaptcha()
-              }
+              this.handleRefreshCaptcha()
             })
         } else {
           return false

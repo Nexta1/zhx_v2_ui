@@ -5,7 +5,7 @@ import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/core/use'
 import '@/icons'
-
+import '@/router/router-guard' // permission control
 Vue.config.productionTip = false
 
 new Vue({

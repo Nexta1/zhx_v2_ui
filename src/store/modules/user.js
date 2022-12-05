@@ -1,5 +1,5 @@
 import { login } from '@/api/login'
-// import { logout, getInfo, permmenu } from '@/api/account'
+import { logout, getInfo, getPerms } from '@/api/account'
 import { setToken, removeToken } from '@/utils/auth'
 // import { resetRouter } from '@/router'
 
@@ -55,30 +55,29 @@ const actions = {
     })
   },
 
-  // 初始化用户及权限信息
-  // getInfo({ commit, dispatch }) {
-  //   return new Promise((resolve, reject) => {
-  //     Promise.all([permmenu(), getInfo()])
-  //       .then((results) => {
-  //         const pm = results[0].data
-  //         const info = results[1].data
-  //         const { perms, menus } = pm
-  //
-  //         // set store
-  //         commit('SET_PERMS', perms)
-  //         commit('SET_NAME', info.name)
-  //         commit('SET_AVATAR', info.headImg)
-  //
-  //         // init socket
-  //         dispatch('ws/initSocket', null, { root: true })
-  //
-  //         resolve({ menus, perms, user: info })
-  //       })
-  //       .catch((error) => {
-  //         reject(error)
-  //       })
-  //   })
-  // },
+  getInfo({ commit, dispatch }) {
+    return new Promise((resolve, reject) => {
+      Promise.all([getPerms(), getInfo()])
+        .then((results) => {
+          const pm = results[0].data
+          const info = results[1].data
+          const { perms, menus } = pm
+
+          // set store
+          commit('SET_PERMS', perms)
+          commit('SET_NAME', info.name)
+          commit('SET_AVATAR', info.headImg)
+
+          // init socket
+          // dispatch('ws/initSocket', null, { root: true })
+
+          resolve({ menus, perms, user: info })
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
 
   // 管理员退出
   // logout({ commit, dispatch }) {

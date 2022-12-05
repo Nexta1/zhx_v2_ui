@@ -1,30 +1,19 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module'
-  },
   env: {
-    browser: true,
-    node: true,
-    es6: true
+    node: true
   },
-  extends: ['plugin:vue/recommended', 'eslint:recommended'],
-
-  // add your custom rules here
-  // it is base on https://github.com/vuejs/eslint-config-vue
+  extends: ['plugin:vue/essential', 'eslint:recommended'],
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
   rules: {
-    // "vue/max-attributes-per-line": [2, {
-    //   "singleline": 10,
-    //   "multiline": {
-    //     "max": 1,
-    //     "allowFirstLine": false
-    //   }
-    // }],
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/multi-word-component-names': 'off',
+    'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/no-v-html': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [
@@ -61,7 +50,7 @@ module.exports = {
     curly: [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    eqeqeq: ['error', 'always', { null: 'ignore' }],
+    eqeqeq: ['warn', 'always', { null: 'ignore' }],
     'generator-star-spacing': [
       2,
       {
@@ -70,14 +59,6 @@ module.exports = {
       }
     ],
     'handle-callback-err': [2, '^(err|error)$'],
-    indent: [
-      2,
-      2,
-      {
-        SwitchCase: 1
-      }
-    ],
-    'jsx-quotes': [2, 'prefer-single'],
     'key-spacing': [
       2,
       {
@@ -102,7 +83,6 @@ module.exports = {
     'new-parens': 2,
     'no-array-constructor': 2,
     'no-caller': 2,
-    'no-console': 'off',
     'no-class-assign': 2,
     'no-cond-assign': 2,
     'no-const-assign': 2,
@@ -182,7 +162,7 @@ module.exports = {
     'no-unreachable': 2,
     'no-unsafe-finally': 2,
     'no-unused-vars': [
-      2,
+      1,
       {
         vars: 'all',
         args: 'none'
@@ -228,7 +208,6 @@ module.exports = {
       }
     ],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'never'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [
@@ -260,14 +239,17 @@ module.exports = {
     'yield-star-spacing': [2, 'both'],
     yoda: [2, 'never'],
     'prefer-const': 2,
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'object-curly-spacing': [
-      2,
-      'always',
-      {
-        objectsInObjects: false
-      }
-    ],
     'array-bracket-spacing': [2, 'never']
-  }
+  },
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      env: {
+        jest: true
+      }
+    }
+  ]
 }
