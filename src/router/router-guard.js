@@ -1,20 +1,18 @@
 import NProgress from 'nprogress' // progress bar
-import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth'
 import store from '../store'
 import router from '.'
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  console.log(getToken())
+
   if (getToken()) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasRoutes = store.getters.permissionRoutes
-
-      if (hasRoutes) {
+      const routes = store.getters.permissionRoutes
+      if (routes.length > 0) {
         next()
       } else {
         const { menus } = await store.dispatch('user/getInfo')
@@ -22,6 +20,7 @@ router.beforeEach(async (to, from, next) => {
           'permission/generateRoutes',
           menus
         )
+        console.log(accessRoutes)
         router.addRoutes(accessRoutes)
         next({ ...to, replace: true })
       }

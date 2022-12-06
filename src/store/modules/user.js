@@ -34,25 +34,17 @@ const mutations = {
 
 const actions = {
   // 管理员登录
-  login({ commit }, loginInfo) {
+  async login({ commit }, loginInfo) {
     const { username, password, captchaId, verifyCode } = loginInfo
-    return new Promise((resolve, reject) => {
-      login({
-        username: username.trim(),
-        password: password.trim(),
-        captchaId: captchaId.trim(),
-        verifyCode: verifyCode.trim()
-      })
-        .then((response) => {
-          const { data } = response
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
-          resolve()
-        })
-        .catch((error) => {
-          reject(error)
-        })
+    const res = await login({
+      username: username.trim(),
+      password: password.trim(),
+      captchaId: captchaId.trim(),
+      verifyCode: verifyCode.trim()
     })
+    const { data } = res
+    commit('SET_TOKEN', data.token)
+    setToken(data.token)
   },
 
   getInfo({ commit, dispatch }) {

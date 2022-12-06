@@ -14,12 +14,7 @@ modulesFiles.keys().forEach((path) => {
     constantRouterComponents[ele] = value[ele]
   })
 })
-// 不生效
-// const router = new VueRouter({
-//   mode: 'history',
-//   base: process.env.BASE_URL,
-//   routes: constantRoutes
-// })
+
 const createRouter = () =>
   new VueRouter({
     mode: 'history', // require service support

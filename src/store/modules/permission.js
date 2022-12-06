@@ -1,23 +1,22 @@
 import { filterAsyncRoutes } from '@/router/generator-routers'
-import { NotFoundRouter } from '@/config/router.config'
+import { constantRoutes, NotFoundRouter } from '@/config/router.config'
 const state = {
-  addRoutes: []
+  addRoutes: [],
+  routes: []
 }
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
+    state.routes = constantRoutes.concat(routes)
   }
 }
 
 const actions = {
-  async generateRoutes({ commit }, menus) {
-    try {
-      const accessRoutes = await filterAsyncRoutes(menus, false)
-      accessRoutes.push(NotFoundRouter)
-      commit('SET_ROUTES', accessRoutes)
-    } catch (error) {
-      console.log(error)
-    }
+  generateRoutes({ commit }, menus) {
+    const accessRoutes = filterAsyncRoutes(menus, false)
+    accessRoutes.push(NotFoundRouter)
+    commit('SET_ROUTES', accessRoutes)
+    return accessRoutes
   }
 }
 export default {
