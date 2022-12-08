@@ -7,6 +7,10 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     proxy: {
+      '/dev': {
+        target: 'http://127.0.0.1:7001',
+        pathRewrite: { '^/dev': '' }
+      },
       '/api': {
         target: 'http://127.0.0.1:7001',
         pathRewrite: { '^/api': '' }
@@ -29,9 +33,7 @@ module.exports = defineConfig({
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload
 
-
     // when there are many pages, it will cause too many meaningless requests
-
 
     // set svg-sprite-loader
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()

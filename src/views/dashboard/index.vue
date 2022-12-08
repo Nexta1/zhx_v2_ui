@@ -8,7 +8,7 @@ export default {
     return {}
   },
   created() {
-    console.log(1)
+    console.log(this.$api)
   }
 }
 </script>

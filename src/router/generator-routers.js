@@ -70,7 +70,6 @@ export function filterAsyncRoutes(routes, parentRoute) {
     } else if (!parentRoute && !route.parentId && route.type === 0) {
       const childrenRoute = filterAsyncRoutes(routes, route)
       realRoute = createRoute(route, true)
-      console.log(realRoute)
       if (childrenRoute && childrenRoute.length > 0) {
         realRoute.redirect = childrenRoute[0].path
         realRoute.children = childrenRoute

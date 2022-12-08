@@ -2,6 +2,7 @@ import NProgress from 'nprogress' // progress bar
 import { getToken } from '@/utils/auth'
 import store from '../store'
 import router from '.'
+import { forEach } from 'lodash'
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
@@ -20,8 +21,9 @@ router.beforeEach(async (to, from, next) => {
           'permission/generateRoutes',
           menus
         )
-        console.log(accessRoutes)
-        router.addRoutes(accessRoutes)
+        forEach(accessRoutes, (value) => {
+          router.addRoute(value)
+        })
         next({ ...to, replace: true })
       }
     }
