@@ -71,29 +71,19 @@ const actions = {
     })
   },
 
-  // 管理员退出
-  // logout({ commit, dispatch }) {
-  //   return new Promise((resolve, reject) => {
-  //     logout()
-  //       .then(() => {
-  //         // 清除localstorage存储的token
-  //         removeToken()
-  //
-  //         // 清除store存储的routes
-  //         dispatch('permission/resetRoutes', null, { root: true })
-  //         // disconnect socket
-  //         dispatch('ws/closeSocket', null, { root: true })
-  //
-  //         // clean vue-router
-  //         // resetRouter()
-  //         commit('RESET_STATE')
-  //         resolve()
-  //       })
-  //       .catch((error) => {
-  //         reject(error)
-  //       })
-  //   })
-  // },
+  logout({ commit, dispatch }) {
+    return new Promise((resolve, reject) => {
+      logout()
+        .then(() => {
+          // 清除localstorage存储的token
+          removeToken()
+          location.reload()
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
 
   // 清除token
   resetToken({ commit }) {

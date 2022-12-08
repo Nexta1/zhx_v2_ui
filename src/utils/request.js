@@ -4,7 +4,7 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 const UNKNOWN_ERROR = '未知错误，请重试'
-
+console.log(process.env.VUE_APP_BASE_API)
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -72,8 +72,7 @@ service.interceptors.response.use(
               location.reload()
             })
           })
-          .catch(() => {
-          })
+          .catch(() => {})
       }
 
       // throw other
