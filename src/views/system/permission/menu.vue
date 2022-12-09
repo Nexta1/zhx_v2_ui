@@ -1,48 +1,51 @@
 <template>
   <div>
-    <table-layout>
-      <s-table
-        ref="table"
-        :data-request="getMenuList"
-        stripe
-        row-key="id"
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-      >
-        <el-table-column
-          prop="router"
-          label="节点路由"
-          align="center"
-          width="240"
-        />
-      </s-table>
-    </table-layout>
+    <el-table
+      :data="tableData"
+      row-key="id"
+      border
+      size="small"
+      stripe
+      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+    >
+      <el-table-column prop="name" label="名称" sortable width="180">
+      </el-table-column>
+      <el-table-column prop="icon" label="图标" sortable width="180">
+      </el-table-column>
+      <el-table-column prop="router" label="节点路由" />
+      <el-table-column prop="keepalive" label="路由缓存" />
+      <el-table-column prop="viewPath" label="文件路径" />
+      <el-table-column prop="perms" label="权限" />
+      <el-table-column prop="orderNum" label="排序" />
+      <el-table-column prop="updateTime" label="更新时间" />
+    </el-table>
   </div>
 </template>
 
 <script>
-import TableLayout from '@/layout/components/TableLayout.vue'
-import STable from '@/components/Table'
-import PermissionMixin from '@/core/mixins/permission'
+import { concat } from 'lodash'
+
 export default {
-  components: { TableLayout, STable },
   data() {
     return {
-      menuTree: []
+      tableData: []
     }
   },
-  mixins: [PermissionMixin],
+  created() {
+    this.loadData()
+  },
   methods: {
-    async getMenuList() {
+    async loadData() {
       const { data } = await this.$api.sys.menu.list()
-      // clean
-      if (this.menutree && this.menutree.length > 0) {
-        this.menutree = []
-      }
-      // 同时缓存树形菜单
-      const parentNode = { id: -1, label: '一级菜单' }
-      parentNode.children = this.filterMenuToTree(data, null)
-      this.menutree.push(parentNode)
-      return { list: this.filterMenuToTable(data, null) }
+      this.tableData = concat(
+        this.tableData,
+        data.filter((item) => {
+          item.children = data.filter((e) => {
+            return item.id === e.parentId
+          })
+          return !item.parentId
+        })
+      )
     }
   }
 }

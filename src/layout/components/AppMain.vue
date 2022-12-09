@@ -1,22 +1,26 @@
 <template>
   <div class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <keep-alive>
-        <router-view />
-      </keep-alive>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animate__animated animate__slideInRight"
+      mode="out-in"
+    >
+      <router-view :key="$route.fullPath" />
     </transition>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AppMain'
+  name: 'AppMain',
+  computed: {}
 }
 </script>
 
 <style scoped>
 .app-main {
   height: 100%;
-
+  width: 100%;
+  overflow: hidden;
 }
 </style>

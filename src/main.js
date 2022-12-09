@@ -9,6 +9,7 @@ import '@/router/router-guard' // permission control
 import bootstrap from '@/core/bootstrap'
 Vue.config.productionTip = false
 import '@/styles/index.scss'
+
 new Vue({
   router,
   store,
