@@ -26,7 +26,7 @@ export function PermissionAction(action = '') {
     if (!target._permission) {
       target._permission = {}
     }
-    // 等待class挂载
+    // 等待class完成
     await target
     const realAction = action || name
     target._permission[name] = `${target.$permissionPrefix}${realAction}`

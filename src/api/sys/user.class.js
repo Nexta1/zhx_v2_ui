@@ -4,10 +4,11 @@ import { PermissionAction, PermissionPrefix } from '@/core/permission/decorator'
 @PermissionPrefix('sys:user:')
 class SysUser {
   @PermissionAction()
-  list() {
+  page(data) {
     return request({
-      url: 'sys/user/list',
-      method: 'get'
+      url: 'sys/user/page',
+      method: 'post',
+      data
     })
   }
   @PermissionAction()

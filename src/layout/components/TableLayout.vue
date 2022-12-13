@@ -1,7 +1,7 @@
 <template>
   <el-card :style="{ border: 'none', margin: '20px' }">
     <el-container :class="{ 'fixed-height': !wrap }">
-      <el-aside v-if="$slots.asside" :width="assideWidth">
+      <el-aside v-if="$slots.aside" :width="asideWidth">
         <slot name="aside" />
       </el-aside>
       <el-container>
