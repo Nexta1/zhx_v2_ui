@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { io } from 'socket.io-client'
+
 export default {
   data() {
     return {
@@ -33,8 +35,24 @@ export default {
   },
   created() {
     this.loadData()
+    this.initSocket()
   },
   methods: {
+    async initSocket() {
+      const socket = await io('http://localhost:7002')
+      // client-side
+      socket.on('connect', () => {
+        console.log(socket.id) // x8WIv7-mJelg7on_ALbx
+      })
+
+      socket.on('disconnect', () => {
+        console.log(socket.id) // undefined
+      })
+      socket.emit('myEvent', 'world')
+      socket.on('myEventResult', (arg) => {
+        console.log(arg) // world
+      })
+    },
     async loadData() {
       const { data } = await this.$api.sys.role.page({
         page: this.currentPage,

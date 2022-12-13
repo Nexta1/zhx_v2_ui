@@ -1,6 +1,12 @@
 <template>
   <div class="navbar">
     <div class="right-menu">
+      <!-- socket连接状态显示 -->
+      <!--      <socket-status-->
+      <!--        id="socketStatus"-->
+      <!--        :status="socketStatus"-->
+      <!--        class="right-menu-item hover-effect"-->
+      <!--      />-->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar" class="user-avatar" />
@@ -26,8 +32,9 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {},
   computed: {
-    ...mapGetters(['sidebar', 'avatar'])
+    ...mapGetters(['sidebar', 'avatar', 'socketStatus'])
   },
   methods: {
     async logout() {
